@@ -7,7 +7,7 @@ const CardCarousel = () => {
 
   const cards = [
     {
-      Image: [msgimbox],
+      Image: {msgimbox},
       content: `I was so down and sick and did not have the funds and strength to visit the hospital.
       Went online and saw DiagnoAI. I put in my symptoms and it helped me figure out what was wrong.
       I am doing way better now because of the diagnosis. Thank you DiagnoAI.`,
@@ -15,7 +15,7 @@ const CardCarousel = () => {
       title: "CEO, ZapBank"
     },
     {
-      Image: [msgimbox],
+      Image: {msgimbox},
      
       content: `I was so down and sick and did not have the funds and strength to visit the hospital.
       Went online and saw DiagnoAI. I put in my symptoms and it helped me figure out what was wrong.
@@ -24,7 +24,7 @@ const CardCarousel = () => {
         title: "CEO, ZapBank"
     },
     {
-      Image: [msgimbox],
+      Image: {msgimbox},
       
       content: `I was so down and sick and did not have the funds and strength to visit the hospital.
       Went online and saw DiagnoAI. I put in my symptoms and it helped me figure out what was wrong.
