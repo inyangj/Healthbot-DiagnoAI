@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import homeimg from "../assets/authImage.png"
 import healthicon from '../assets/Vector.png'
-// import CardCarousel from "../components/CardCarousel"
+
 import FormData from "../components/FormData"
 import google from "../assets/svg/google.svg";
 
@@ -20,9 +20,7 @@ const Signup = () => {
                     
                     </div>
                    
-                    {/* <div>
-                        <CardCarousel/>
-                    </div> */}
+                   
                 </div>
 
               
