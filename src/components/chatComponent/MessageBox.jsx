@@ -35,6 +35,7 @@ const MessageBox = () => {
       setIsSubmitted(true);
       setIsTyping(true);
       simulateBotResponse(userMessage);
+      console.log(userMessage)
     }
   };
 
