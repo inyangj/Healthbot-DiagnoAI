@@ -204,10 +204,10 @@ const FormData = () => {
               </select>
             </div>
 
-            {errors.date && (
+            {errors.gender && (
               <p className="text-red-500 flex flex-row gap-1 text-sm md:text-md">
                 <FaExclamationCircle className="text-red-500 mt-1" />
-                {errors.date.message}
+                {errors.gender.message}
               </p>
             )}
           </div>
