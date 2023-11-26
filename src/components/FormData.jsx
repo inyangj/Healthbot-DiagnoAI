@@ -72,6 +72,7 @@ const FormData = () => {
       );
 
       if (response.status === 201) {
+        localStorage.setItem("userData", JSON.stringify(response.data));
         console.log("Registration successful!");
         navigate("/confirmemail");
       } else {
@@ -200,7 +201,7 @@ const FormData = () => {
                 </option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
-                <option value="other">Other</option>
+               
               </select>
             </div>
 
