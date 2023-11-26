@@ -15,7 +15,7 @@ const Chat = () => {
      
       <div className='min-h-screen hidden  min-w-[18.5rem] pt-10 lg:flex'></div>
       <SideBar  darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-        <MainChat darkMode={darkMode} />
+        <MainChat darkMode={darkMode}  />
     </main>
   )
 }
