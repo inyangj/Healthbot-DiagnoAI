@@ -48,7 +48,7 @@ const MainChat = ({darkMode}) => {
        </div>
 
         <div className='font-AeonikTRAIL_Regular flex flex-row gap-6 w-full flex-wrap justify-center mb-24'>
-        
+        {/* so here we are showing possible chat symptoms for the potential users */}
           {data.map((text, index) => (
             <p  key={index}
                 className={`${darkMode ? 'bg-[#333]' : 'bg-[rgb(246,247,248)]'}
