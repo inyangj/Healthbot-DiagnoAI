@@ -6,6 +6,40 @@ const MessageBox = () => {
   const [textareaContent, setTextareaContent] = useState('');
   const [isTyping, setIsTyping] = useState(false);
 
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [chatHistory, setChatHistory] = useState([]);
+
+  const simulateBotResponse = (userMessage) => {
+    // Simulate a delayed bot response (you can replace this with actual API call)
+    setTimeout(() => {
+      const botResponse = `Bot: Thanks for your message - "${userMessage}"`;
+      setChatHistory([...chatHistory, { type: 'user', message: userMessage }, { type: 'bot', message: botResponse }]);
+      setIsTyping(false);
+    }, 1000); // Simulated delay of 1 second
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const userMessage = textareaContent.trim();
+
+    if (userMessage !== '') {
+      // Add user message to chat history
+      setChatHistory([...chatHistory, { type: 'user', message: userMessage }]);
+      
+      // Clear textarea content and reset height
+      setTextareaContent('');
+      const textarea = document.getElementById('text');
+      textarea.style.height = 'auto';
+
+      // Simulate bot response
+      setIsSubmitted(true);
+      setIsTyping(true);
+      simulateBotResponse(userMessage);
+      console.log(userMessage)
+    }
+  };
+
+
   const handleInputChange = (event) => {
     const content = event.target.value;
     setTextareaContent(content);
