@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 import MessageBox from './MessageBox'
 import SideNav from './SideNav'
 import iconhead from '../../assets/iconhead.png'
+import { useChat } from '../../contexts/ChatContext'
 
 const data = [
   'I feel dizzy and I have a slight headache now and then',
@@ -16,15 +17,17 @@ const data = [
 ];
 
 const MainChat = ({darkMode}) => {
-
+  const { isOpen, openChat, closeChat } = useChat();
   const [isShown, setIsShown] = useState(false)
   const [userName, setUserName] = useState('');
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('userData'));
     const storedUserName = storedUser ? storedUser.data.fullName : '';
-    if (storedUserName) {
+    const storedAuthToken = storedUser ? storedUser.token : '';
+    if (storedUserName && storedAuthToken) {
       setUserName(storedUserName);
+      setAuthToken(storedAuthToken);
     }
   })
 
@@ -43,6 +46,8 @@ const MainChat = ({darkMode}) => {
         <div></div>
       </header>
 
+
+      {!isOpen && (  
       <div className='relative flex flex-col justify-center items-center'>
         <div className='w-fit flex justify-center relative'>
           <img src={mainchatlogo} className='w-72 lg:w-full' />
@@ -66,10 +71,11 @@ const MainChat = ({darkMode}) => {
           ))}
         </div>
         
-        <MessageBox />
 
       </div>
+      )}
      
+      <MessageBox />
     </section>
   )
 }
