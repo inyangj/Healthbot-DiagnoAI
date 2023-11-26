@@ -1,10 +1,29 @@
+import { data } from "autoprefixer";
 import confirmemaillogo from "../assets/confirmemaillogo.png"
 import healthicon from '../assets/Vector.png'
 import HomeCardCarousel from "../components/HomeCardCarousel"
+import { useState, useEffect } from 'react';
 // import CardCarousel from "../components/cardCarousel"
 
 const ConfirmEmailScreen = () => {
+    const [userEmail, setUserEmail] = useState('');
 
+    useEffect(() => {
+      
+      const user = JSON.parse(localStorage.getItem('userData'));
+      const storedEmail = user ? user.data.email : '';
+     
+      if (storedEmail) {
+        const maskedEmail = maskEmail(storedEmail);
+        setUserEmail(maskedEmail);
+      }
+    }, []);
+  
+    const maskEmail = (email) => {
+      const [username, domain] = email.split('@');
+      const maskedUsername = `${username.substring(0, 5)}*****`;
+      return `${maskedUsername}@${domain}`;
+    };
 
     return (
         <div>
@@ -28,7 +47,7 @@ const ConfirmEmailScreen = () => {
                     <img src={confirmemaillogo} alt="confirm email logo" className="w-12" />
                     <h1 className="text-textprimary text-4xl font-bold">Verify email</h1>
                     <p className="text-sm text-textgray mt-2">
-                    We sent a verification link to <span className="text-textprimary font-bold">john***@gmail.com.</span><br/>
+                    We sent a verification link to <span className="text-textprimary font-bold">{userEmail}</span><br/>
                     Kindly go to your email and verify account to proceed
                     </p>
                 
