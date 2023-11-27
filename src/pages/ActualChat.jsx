@@ -68,9 +68,12 @@ const ActualChat = ({
         {chatHistory?.map((chat, index) => (
           <div
             key={index}
-            className={`message ${chat.role === 'user' ? darkMode? 'bg-[#333]' : 'bg-[#D9F3EA]' : darkMode? 'bg-[#032f20]' : 'bg-[#F3F3F3]'}
-             p-2 mb-2 rounded-s-[16px] max-w-md border border-solid border-slate-600 flex flex-row
-             self-${chat.role === "user" ? "end" : "start"} `}
+            className={`message ${
+              chat.role === "user" ? "bg-[#D9F3EA]" : "bg-[#F3F3F3]"
+            }
+            ${chat.role === 'user' ? 'self-end rounded-t-2xl rounded-l-2xl' : 'self-start rounded-t-2xl rounded-r-2xl'}
+             p-2 mb-2 max-w-md border border-solid border-slate-600 flex flex-row
+             self-${chat.role === "user" ? "end" : "start"}`}
           >
             <p className="text-black">{chat.content}</p>
           </div>
