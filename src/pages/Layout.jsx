@@ -11,7 +11,7 @@ const Layout = ({children}) => {
             <div className="flex flex-col gap-y-6 md:flex-row w-full mx-auto bg-white">
             <div className="background-image hidden lg:flex lg:w-1/2">
                     <div className="absolute top-16 left-6 flex flex-row gap-2">
-                            <img src={ healthicon} alt="health icon" className="w-12 h-12" />
+                            <img src={ healthicon} alt="health icon" className="w-12 scale-75 h-12" />
                     <h1 className="text-white text-3xl font-semibold">DiagnoAI</h1>
                     
                     </div>

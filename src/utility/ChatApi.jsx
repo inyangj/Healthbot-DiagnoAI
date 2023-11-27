@@ -1,6 +1,7 @@
 import axios from "axios";
 
 
+
 const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
 const getAuthorizationHeader = () => {
@@ -39,4 +40,11 @@ export async function createChat(chatData) {
     } catch (error) {
       throw new Error("Error fetching chat");
     }
+  }
+
+
+
+  export const logout = () => {
+    localStorage.removeItem("userData");
+    window.location.href = "/login";
   }

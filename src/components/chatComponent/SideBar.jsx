@@ -11,7 +11,8 @@ import logoutLight from "../../assets/svg/logoutLight.svg";
 import Li from "./Li";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { fetchUserChat } from "../../utility/ChatApi";
+import { fetchUserChat, logout as signout } from "../../utility/ChatApi";
+
 
 const SideBar = ({ darkMode, toggleDarkMode, chatList, setChatList }) => {
   // const [chats, setChats] = useState([]);
@@ -51,12 +52,15 @@ const SideBar = ({ darkMode, toggleDarkMode, chatList, setChatList }) => {
         <div className='w-[18.5rem]'>
             <hr className='w-full border-t border-t-[#BDBDBD]'/>
         <ul className='grid gap-6 p-6'>
-            <Li src={darkMode ? trashLight : trash } alt="trah-icon" >Clear conversation</Li>
+            {/* <Li src={darkMode ? trashLight : trash } alt="trah-icon" >Clear conversation</Li> */}
             <li className='flex gap-2 items-center' onClick={toggleDarkMode}>
             {darkMode ? <FaSun /> : <FaMoon />} {darkMode ? 'Light Mode' : 'Dark Mode'}
           </li>
-            <Li src={darkMode ? profileLight : profile} alt="Account-icon" >Account Settings</Li>
-            <Li src={darkMode ? logoutLight : logout} alt="logout-icon" >Logout</Li>
+            {/* <Li src={darkMode ? profileLight : profile} alt="Account-icon" >Account Settings</Li> */}
+            
+
+            <Li src={darkMode ? logoutLight : logout} onclick={signout} alt="logout-icon" >Logout</Li>
+       
         </ul>
         </div>
           </div>
