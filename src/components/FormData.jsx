@@ -94,7 +94,7 @@ const FormData = () => {
         className="w-full h-auto flex flex-col
          gap-y-4"
       >
-        <div className="w-full flex flex-col gap-y-6">
+        {/* <div className="w-full flex flex-col gap-y-6"> */}
           <div className="w-full h-auto relative space-y-2">
             <label className="text-[0.875rem] text-textgray" htmlFor="name">
               Full Name
@@ -133,9 +133,9 @@ const FormData = () => {
               </p>
             )}
           </div>
-        </div>
+        {/* </div> */}
 
-        <div className="w-full flex flex-col gap-y-6">
+        {/* <div className="w-full flex flex-col gap-y-6"> */}
           <div className="w-full h-auto space-y-2">
             <label className="text-[0.875rem] text-textgray" htmlFor="email">
               Email Address
@@ -258,9 +258,9 @@ const FormData = () => {
               </p>
             )}
           </div>
-        </div>
+        {/* </div> */}
 
-        <div className="w-full flex flex-col gap-6">
+        {/* <div className="w-full flex flex-col gap-6"> */}
           <div className="w-full h-auto space-y-2">
             <label className="text-[0.875rem] text-textgray">
               Create Password
@@ -282,11 +282,10 @@ const FormData = () => {
                 id="password"
                 {...register("password", {
                   pattern: {
-                    value:
-                      /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/,
-                    message:
-                      "8-16 characters long, at least one capital/small letter, at least one symbol, at least one number",
+                    value: /^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%^&*]{8,16}$/,
+                    message: "8-16 characters long, at least one capital/small letter, at least one number",
                   },
+                  
                 })}
               />
               <img
@@ -305,7 +304,7 @@ const FormData = () => {
               </p>
             )}
           </div>
-        </div>
+        {/* </div> */}
 
         <button
           type="submit"

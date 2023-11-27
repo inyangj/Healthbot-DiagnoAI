@@ -9,7 +9,7 @@ const Home = () => {
 
     return (
         <div>
-            <div className="flex flex-col gap-y-6 md:flex-row w-full mx-auto bg-white">
+            <div className="flex flex-col gap-y-6 md:flex-row w-full font-AeonikTRAIL_Regular mx-auto bg-white">
             <div className="background-image hidden lg:flex lg:w-1/2">
                     <div className="absolute top-16 left-6 flex flex-row gap-2">
                             <img src={ healthicon} alt="health icon" className="w-12 h-12" />
