@@ -10,11 +10,26 @@ import profileLight from '../../assets/svg/profileLight.svg'
 import logoutLight from '../../assets/svg/logoutLight.svg'
 import Li from './Li'
 import { Link } from 'react-router-dom'
+import { useRefresh } from '../../chatcontext/RefreshContext';
+
 
 const SideBar = ({ darkMode, toggleDarkMode, handleClick }) => {
+
+  const { refresh, triggerRefresh } = useRefresh();
+
+  const handleRefresh = () => {
+    // Your logic here, then trigger the refresh
+    triggerRefresh();
+  };
+
   return (
     <aside className={`${darkMode ? '#fff' : '#000'} ${darkMode ? 'bg-[#282828]' : 'bg-[#fff]'} hidden  min-w-[18.5rem] pt-10 lg:grid border-r boreder-r-[#BDBDBD] h-screen fixed left-0 top-0`}>
-      <Button className={` mx-6  h-fit`} onClick={handleClick}>+ New Chat</Button>
+      <Button className={` mx-6  h-fit`} onClick={handleRefresh}>+ New Chat</Button>
+      <div className='self-start'>
+        <ul>
+          <li></li>
+        </ul>
+      </div>
         <div className='self-end'>
             <hr className='w-full border-t border-t-[#BDBDBD]'/>
         <ul className='grid gap-6 p-6'>

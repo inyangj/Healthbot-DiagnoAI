@@ -6,11 +6,12 @@ import Home from "../pages/Home";
 import ConfirmEmailScreen from "../pages/ConfirmEmailScreen";
 import Chat from "../pages/Chat";
 import { MessageBoxProvider } from "../chatcontext/MessageBoxContext"; // Adjust the path accordingly
+import { RefreshProvider } from "../chatcontext/RefreshContext";
 
 const AppRouter = () => {
   return (
     <BrowserRouter>
-      <MessageBoxProvider>
+      <RefreshProvider>
         <Routes>
           <Route index path={`/`} element={<Home />} />
           <Route path={`/signup`} element={<Signup />} />
@@ -18,7 +19,7 @@ const AppRouter = () => {
           <Route path={`/login`} element={<Login />} />
           <Route path={`/chat`} element={<Chat />} />
         </Routes>
-      </MessageBoxProvider>
+      </RefreshProvider>
     </BrowserRouter>
   );
 };

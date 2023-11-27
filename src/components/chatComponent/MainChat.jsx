@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 import MessageBox from './MessageBox'
 import SideNav from './SideNav'
 import iconhead from '../../assets/iconhead.png'
+import Chat from '../../pages/Chat'
 
 
 const data = [
@@ -20,6 +21,7 @@ const MainChat = ({darkMode}) => {
 
   const [isShown, setIsShown] = useState(false)
   const [userName, setUserName] = useState('');
+  const [chatHistory, setChatHistory] = useState([]);
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('userData'));
@@ -28,6 +30,10 @@ const MainChat = ({darkMode}) => {
       setUserName(storedUserName);
     }
   })
+
+  const updateChatHistory = (newChat) => {
+    setChatHistory([...chatHistory, newChat]);
+  };
 
   const handleModal = () => {
     setIsShown(!isShown)
@@ -45,7 +51,7 @@ const MainChat = ({darkMode}) => {
       </header>
 
      
-      <MessageBox />
+      <MessageBox  updateChatHistory={updateChatHistory}/>
     </section>
   )
 }
