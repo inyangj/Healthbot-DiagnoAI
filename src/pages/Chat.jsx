@@ -1,9 +1,18 @@
 import React, { useState } from 'react'
 import SideBar from '../components/chatComponent/SideBar'
 import MainChat from '../components/chatComponent/MainChat'
+import { useAuth } from '../contexts/AuthContext'
+import { Navigate } from 'react-router-dom';
 
 const Chat = () => {
     const [darkMode, setDarkMode] = useState(false);
+    const { state } = useAuth();
+
+    // If the user is not authenticated, redirect to the login page
+    if (!state.isAuthenticated) {
+      return <Navigate to="/login" />;
+    }
+  
 
     const toggleDarkMode = () => {
       setDarkMode(!darkMode);
