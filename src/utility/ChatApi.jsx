@@ -15,4 +15,17 @@ export async function createChat(chatData) {
     return await axios.post(` ${BASE_URL}/api/v1/messages`, chatData, {
       headers,
     });
+  };
+
+
+  export async function fetchUserChat() {
+    try {
+      const headers = getAuthorizationHeader();
+      const response = await axios.get(`${BASE_URL}/api/v1/chats`, {
+        headers,
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error("Error fetching chat");
+    }
   }

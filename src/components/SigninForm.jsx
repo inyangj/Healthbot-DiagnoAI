@@ -4,6 +4,7 @@ import key from "../assets/svg/key.svg";
 import eye from "../assets/svg/eye.svg";
 import eyeclose from "../assets/svg/eyeclose.svg";
 import axios from "axios"; 
+import { useAuth } from "../contexts/AuthContext";
 import {useNavigate} from "react-router-dom"
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,6 +18,7 @@ const SigninForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { dispatch } = useAuth();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -34,6 +36,7 @@ const SigninForm = () => {
 
       if (response.status === 200) {
         toast.success("Log in successful!");
+        dispatch({ type: "LOGIN", payload: response.data });
         localStorage.setItem("userData", JSON.stringify(response.data));
         navigate("/chat");
       } else {
