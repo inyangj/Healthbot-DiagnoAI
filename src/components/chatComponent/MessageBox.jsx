@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import messageboxicon from '../../assets/messageboxicon.png';
 import messageboxicondark from '../../assets/messageboxicondark.png';
 import ChatComponent from './ChatComponent'
+import SideBar from './SideBar';
 
 const MessageBox = () => {
   const [textareaContent, setTextareaContent] = useState('');
@@ -17,6 +18,14 @@ const MessageBox = () => {
       setIsTyping(false);
     }, 1000); // Simulated delay of 1 second
   };
+
+  const handleClick = () => {
+    setIsSubmitted(!isSubmitted)
+    // Clear textarea content and reset height
+    setTextareaContent('');
+    const textarea = document.getElementById('text');
+    textarea.style.height = 'auto';
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -72,7 +81,7 @@ const MessageBox = () => {
           <ChatComponent />
         )
       }
-     
+
       
     <div className='w-[90%] lg:w-2/3 border min-h-12 border-solid border-lighttextgray rounded-2xl mb-12 px-6 py-2'>
         <form className='flex items-center' onSubmit={handleSubmit}>

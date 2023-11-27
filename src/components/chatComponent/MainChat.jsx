@@ -28,14 +28,8 @@ const MainChat = ({darkMode}) => {
         <img src={darkMode ? iconhead : logo } alt="logo-icon" className='mx-auto' />
         <div></div>
       </header>
-
-      {/* <div className='relative flex flex-col justify-center items-center'> */}
-        
-        {/* <ChatComponent /> */}
-        
+  
         <MessageBox />
-
-      {/* </div> */}
      
     </section>
   )
