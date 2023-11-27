@@ -69,7 +69,8 @@ const ActualChat = ({
             className={`message ${
               chat.role === "user" ? "bg-[#D9F3EA]" : "bg-[#F3F3F3]"
             }
-             p-2 mb-2 rounded-s-[16px] max-w-md border border-solid border-slate-600 flex flex-row
+            ${chat.role === 'user' ? 'self-end rounded-t-2xl rounded-l-2xl' : 'self-start rounded-t-2xl rounded-r-2xl'}
+             p-2 mb-2 max-w-md border border-solid border-slate-600 flex flex-row
              self-${chat.role === "user" ? "end" : "start"}`}
           >
             <p>{chat.content}</p>
