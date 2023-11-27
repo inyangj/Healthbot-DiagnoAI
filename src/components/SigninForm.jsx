@@ -104,9 +104,9 @@ const SigninForm = () => {
       </div>
       <button
         type="submit"
-        className="w-full bg-secondary text-white font-Nohemi_Bold text-[0.875rem] py-2 rounded-[0.27rem] font-bold"
+        className="w-full bg-secondary text-white font-Nohemi_Bold text-[0.875rem] py-2 rounded-[0.27rem] font-bold mb-4"
       >
-        { loading ? 'logging in...' : 'log in'}
+        { loading ? 'logging in...' : 'Log in'}
       </button>
     </form>
   );

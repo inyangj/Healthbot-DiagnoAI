@@ -6,6 +6,7 @@ import profile from '../../assets/profile.png'
 import moon from '../../assets/moon.png'
 import helpcenter from '../../assets/helpcenter.png'
 import logout from '../../assets/logout.png'
+import { logout as signout } from "../../utility/ChatApi";
 
 
 
@@ -24,6 +25,13 @@ const SideNav = ({ darkMode, toggleDarkMode, handleModal }) => {
       clearTimeout(timeoutId);
     };
   }, []);
+
+  
+    const storedUser = JSON.parse(localStorage.getItem('userData'));
+    const userName =  storedUser.data.fullName ;
+    const email =  storedUser.data.email ;
+    
+
 
     
   const handleClose = () => {
@@ -49,10 +57,10 @@ const SideNav = ({ darkMode, toggleDarkMode, handleModal }) => {
         }`}
           >
               <div className="py-6 border-b border-b-solid border-b-lighttextgray flex flex-row gap-3 items-center">
-                  <h1 className="px-4 py-2 bg-textprimary text-white font-AeonikTRAIL_Bold w-fit rounded-full">J</h1>
+                  <h1 className="px-4 py-2 bg-textprimary text-white font-AeonikTRAIL_Bold w-fit rounded-full">{userName[0]}</h1>
                   <div>
-                      <h3 className="font-AeonikTRAIL_Bold font-bold">John Doe</h3>
-                      <p className="text-xs text-textgray">johndoe@gmail.com</p>
+                      <h3 className="font-AeonikTRAIL_Bold font-bold">{userName}</h3>
+                      <p className="text-xs text-textgray">{email}</p>
                   </div>
               </div>
 
@@ -87,9 +95,9 @@ const SideNav = ({ darkMode, toggleDarkMode, handleModal }) => {
                 
               </ul>
 
-              <div className="py-6">
+              <div className="py-6" onClick={() => signout()}>
               <div className="flex flex-row gap-4 items-center">
-                <img src={logout} alt="profile icon" />
+                <img src={logout} alt="profile icon " />
                 <h3 className="font-AeonikTRAIL_Regular">Logout</h3>
               </div> 
               </div>

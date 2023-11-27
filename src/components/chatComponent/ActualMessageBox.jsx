@@ -3,65 +3,73 @@ import messageboxicon from "../../assets/messageboxicon.png";
 import messageboxicondark from "../../assets/messageboxicondark.png";
 import { createChat } from "../../utility/ChatApi";
 import ChatComponent from "./ChatComponent";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-const MessageBox = ({
+const ActualMessageBox = ({
   chatList,
   setChatList,
   setChatHistory,
   chatHistory,
   isNew,
-  setIsSubmitted,
+  isTyping,
+  setIsTyping,
 }) => {
   const [textareaContent, setTextareaContent] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
 
-  // const [originalMessage, setOriginalMessage] = useState({});
-  // const [responseMessage, setResponseMessage] = useState({});
-  // const [chat, setChat] = useState({});
-  const navigate = useNavigate();
+  const [chat, setChat] = useState({});
+  const {id} = useParams();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const userMessage = textareaContent.trim();
 
-    setIsSubmitted(true);
+    const userMessage = textareaContent.trim();
+    setChatHistory(
+      userMessage
+        ? [...chatHistory, { role: "user", content: userMessage }]
+        : chatHistory
+    );
+    setTextareaContent("");
+    const textarea = document.getElementById("text");
+    textarea.style.height = "auto";
+    setIsTyping(true);
+
     if (userMessage !== "") {
       const userData = JSON.parse(localStorage.getItem("userData"));
-
       const chatData = {
         user: userData.data.id,
         content: userMessage,
+        chatId: id
       };
 
+      console.log("chatData", chatData);
+
       const response = await createChat(chatData);
-      const {
-        originalMessage,
-        responseMessage,
-        chat: chatResponse,
-      } = response.data.data;
-      // setOriginalMessage(originalMessage);
-      // setResponseMessage(responseMessage);
-      // console.log("chatResponse from the message box", chatResponse);
-      // setChat(chatResponse);
+      const { responseMessage, chat: chatResponse } = response.data.data;
 
-      window.location.href = `/chat/${chatResponse.id}`;
-      // navigate(`/chat/${chatResponse.id}`);
+      setIsTyping(false);
+      setChat(chatResponse);
+      setChatHistory([
+        ...chatHistory,
+        {
+          role: responseMessage?.role,
+          message: responseMessage?.content,
+        },
+      ]);
 
-      // if (isNew){
-      //   setChatList([...chatList, chat]);
-      //   console.log("chatList",chatList);
-      //   window.href.location = `/chat/${chat.id}`;
-      // } else {
-      //   setChatHistory([...chatHistory, { role: "user", message: userMessage }, { role: responseMessage?.role, message: responseMessage?.content }]);
-      // }
+      console.log("chatHistory from ActualMessageBox", chatHistory);
+    
 
-      // console.log('API Response:', response.data);
-      // setTextareaContent('');
-      // const textarea = document.getElementById('text');
-      // textarea.style.height = 'auto';
-
-      // Simulate bot response
+      //   if (isNew) {
+      //     setChatList([...chatList, chat]);
+      //     console.log("chatList", chatList);
+      //     window.href.location = `/chat/${chat.id}`;
+      //   } else {
+      //     setChatHistory([
+      //       ...chatHistory,
+      //       { role: "user", message: userMessage },
+      //       { role: responseMessage?.role, message: responseMessage?.content },
+      //     ]);
+      //   }
     }
   };
 
@@ -105,4 +113,4 @@ const MessageBox = ({
   );
 };
 
-export default MessageBox;
+export default ActualMessageBox;

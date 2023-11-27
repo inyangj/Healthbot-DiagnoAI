@@ -1,6 +1,7 @@
 import axios from "axios";
 
 
+
 const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
 const getAuthorizationHeader = () => {
@@ -28,4 +29,22 @@ export async function createChat(chatData) {
     } catch (error) {
       throw new Error("Error fetching chat");
     }
+  }
+  export async function fetchChatMessages(id) {
+    try {
+      const headers = getAuthorizationHeader();
+      const response = await axios.get(`${BASE_URL}/api/v1/messages/${id}`, {
+        headers,
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error("Error fetching chat");
+    }
+  }
+
+
+
+  export const logout = () => {
+    localStorage.removeItem("userData");
+    window.location.href = "/login";
   }
