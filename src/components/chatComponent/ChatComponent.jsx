@@ -16,7 +16,7 @@ const data = [
 ];
 
 
-const ChatComponent = ({ darkMode }) => {
+const ChatComponent = ({ darkMode,isSubmitted, setIsSubmitted }) => {
     const [userName, setUserName] = useState('');
     
     useEffect(() => {
@@ -33,9 +33,15 @@ const ChatComponent = ({ darkMode }) => {
           <img src={mainchatlogo} className='w-72 lg:w-full' />
           <div className='font-AeonikTRAIL_Regular bg-[#D9F3EA] p-4 rounded-b-[1.8rem] rounded-l-[1.8rem] text-textprimary text-[0.6rem] absolute top-36 -left-8 shadow-xl  shadow-l-xl sm:-left-8 md:p-4 md:-left-12 lg:text-[1.1rem] lg:-left-16  lg:top-52'>
             <p>Hi, {userName}, how are you</p>
-            <p>feeling today? Below are</p>
-            <p>a few common symptoms</p>
-            <p>that you might be feeling</p>
+            {isSubmitted ?(
+              <p>Fetching your answers</p>
+            ):(
+              <div>
+                <p>feeling today?</p>
+                <p>a few common symptoms</p>
+                <p>that you might be feeling</p>
+              </div>
+            )}
           </div>
        </div>
 

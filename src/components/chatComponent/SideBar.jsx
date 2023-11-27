@@ -1,70 +1,54 @@
-import React, { useEffect, useState } from 'react'
-import Button from '../elements/Button'
-import { FaMoon, FaSun } from 'react-icons/fa'
+import React, { useEffect, useState } from "react";
+import Button from "../elements/Button";
+import { FaMoon, FaSun } from "react-icons/fa";
 
-import logout from '../../assets/svg/logout.svg'
-import profile from '../../assets/svg/profile.svg'
-import trash from '../../assets/svg/trash.svg'
-import trashLight from '../../assets/svg/trashLight.svg'
-import profileLight from '../../assets/svg/profileLight.svg'
-import logoutLight from '../../assets/svg/logoutLight.svg'
-import Li from './Li'
-import { Link, Navigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
-import { fetchUserChat } from '../../utility/ChatApi'
+import logout from "../../assets/svg/logout.svg";
+import profile from "../../assets/svg/profile.svg";
+import trash from "../../assets/svg/trash.svg";
+import trashLight from "../../assets/svg/trashLight.svg";
+import profileLight from "../../assets/svg/profileLight.svg";
+import logoutLight from "../../assets/svg/logoutLight.svg";
+import Li from "./Li";
+import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchUserChat } from "../../utility/ChatApi";
 
-
-
-
-
-const SideBar = ({ darkMode, toggleDarkMode }) => {
-  const [chats, setChats] = useState([]);
-
-  const {
-    data,
-    isLoading,
-    error,
-  } = useQuery({ queryKey: ["chats"], queryFn: fetchUserChat });
-
-  useEffect(() => {
-    if (data) {
-      setChats(data.data);
-    }
-  }, [data]);
-
-  if (isLoading) {
-    return (
-      <div>
-        <img src={trash} className=" mx-auto" alt="icon" />
-      </div>
-    );
-  }
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
+const SideBar = ({ darkMode, toggleDarkMode, chatList, setChatList }) => {
+  // const [chats, setChats] = useState([]);
   
 
-  const handclick = () => {
-    <Navigate to="/chat" />
-  }
+  // const { data, isLoading, error } = useQuery({
+  //   queryKey: ["chats"],
+  //   staleTime: 60000, // Set a reasonable stale time (in milliseconds)
+  //   refetchInterval: 10000,
+  //   queryFn: fetchUserChat,
+  // });
+
+  useEffect(() => {
+    const fetchChats = async () => {
+      const response = await fetchUserChat();
+
+      setChatList(response.data);
+    };
+    fetchChats();
+  }, []);
+
   return (
-    <aside className={`${darkMode ? '#fff' : '#000'} ${darkMode ? 'bg-[#282828]' : 'bg-[#fff]'} hidden  min-w-[18.5rem] pt-10 lg:grid border-r boreder-r-[#BDBDBD] h-screen fixed left-0 top-0`}>
-       
-        <Button onClick={handclick} className={` mx-6  h-fit`}>+ New Chat</Button>
-
-        <div>
+    <aside className={`${darkMode ? '#fff' : '#000'} ${darkMode ? 'bg-[#282828]' : 'bg-[#fff]'} hidden w-[19rem] pt-10 lg:block border-r boreder-r-[#BDBDBD] h-screen fixed overflow-y-auto overflow-x-hidden left-0 top-0`}>
+        <div className='flex flex-col gap-10  w-[18.5rem] min-h-screen'>
+        <Link to="/chat" className={` mx-6  h-fit`}>
+        <Button className={`w-full`}>+ New Chat</Button>
+      </Link>
+        <div className='ml-6 mr-3'>
           <ul>
-            {chats.map((chat) => (
+            {chatList.map((chat) => (
               <Link to={`/chat/${chat.id}`} key={chat.id}>
-              <li >{chat.title}</li>
-
+                <li className='my-6'>{chat.title?.replace(/"/g, '')}</li>
               </Link>
             ))}
           </ul>
         </div>
-        
-        <div className='self-end'>
+        <div className='w-[18.5rem]'>
             <hr className='w-full border-t border-t-[#BDBDBD]'/>
         <ul className='grid gap-6 p-6'>
             <Li src={darkMode ? trashLight : trash } alt="trah-icon" >Clear conversation</Li>
@@ -75,8 +59,9 @@ const SideBar = ({ darkMode, toggleDarkMode }) => {
             <Li src={darkMode ? logoutLight : logout} alt="logout-icon" >Logout</Li>
         </ul>
         </div>
-    </aside>
-  )
-}
+          </div>
+        </aside>
+  );
+};
 
-export default SideBar
+export default SideBar;

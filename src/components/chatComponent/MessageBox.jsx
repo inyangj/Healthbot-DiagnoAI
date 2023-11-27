@@ -3,16 +3,18 @@ import messageboxicon from '../../assets/messageboxicon.png';
 import messageboxicondark from '../../assets/messageboxicondark.png';
 import { createChat } from '../../utility/ChatApi';
 import ChatComponent from './ChatComponent';
+import {useNavigate} from 'react-router-dom';
 
-const MessageBox = () => {
+const MessageBox = ({  chatList, setChatList, setChatHistory, chatHistory, isNew, setIsSubmitted}) => {
   const [textareaContent, setTextareaContent] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [id, setId] = useState(null);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [chatHistory, setChatHistory] = useState([]);
+
+  
   const [originalMessage, setOriginalMessage] = useState({});
   const [responseMessage, setResponseMessage] = useState({});
   const [chat, setChat] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("userData"));
@@ -25,34 +27,19 @@ const MessageBox = () => {
     
   }, []);
 
-  // const simulateBotResponse = async (userMessage) => {
-    
-  //     const botResponse = `Bot: Thanks for your message - "${userMessage}"`;
-  //     setChatHistory([...chatHistory, { type: 'user', message: userMessage }, { type: 'bot', message: botResponse }]);
-  //     setIsTyping(false);
 
-  //     // Make a POST request to the API
-  //     const chat = {
-  //       user: '6561ae8c990f150d3c687d7f',
-  //       content: userMessage,
-  //     };
-
-  //     const response = await createChat(chat);
-
-  //     console.log('API Response:', response.data);
-     
-   
-  // };
 
   
+ 
 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const userMessage = textareaContent.trim();
+  
+   
 
     setIsSubmitted(true);
-    setIsTyping(true);
     if (userMessage !== '') {
    
       const chatData = {
@@ -61,17 +48,27 @@ const MessageBox = () => {
       };
       
       const response = await createChat(chatData);
-      const {originalMessage, responseMessage, chat} = response.data.data;
+      const {originalMessage, responseMessage, chat: chatResponse} = response.data.data;
       setOriginalMessage(originalMessage);
       setResponseMessage(responseMessage);
-      setChat(chat);
-      setChatHistory([...chatHistory, { role: originalMessage?.role, message: originalMessage?.content }, { role: responseMessage?.role, message: responseMessage?.content }]);
+      setChat(chatResponse);
+      navigate(`/chat/${chat.id}`);
+      console.log('chat',chat);
+      
+      
+      // if (isNew){
+      //   setChatList([...chatList, chat]);
+      //   console.log("chatList",chatList);
+      //   window.href.location = `/chat/${chat.id}`;
+      // } else {
+      //   setChatHistory([...chatHistory, { role: "user", message: userMessage }, { role: responseMessage?.role, message: responseMessage?.content }]);
+      // }
       
 
-      console.log('API Response:', response.data);
-      setTextareaContent('');
-      const textarea = document.getElementById('text');
-      textarea.style.height = 'auto';
+      // console.log('API Response:', response.data);
+      // setTextareaContent('');
+      // const textarea = document.getElementById('text');
+      // textarea.style.height = 'auto';
 
       // Simulate bot response
      
@@ -98,27 +95,6 @@ const MessageBox = () => {
 
     <div className=' w-full relative flex flex-col justify-center items-center'>
 
-      {
-        isSubmitted ? (
-          <div className='w-full min-h-screen flex flex-col'>
-          {/* Render chat history */}
-          {chatHistory.map((chat, index) => (
-            <div key={index}
-              className={`message ${chat.role === originalMessage.role ? 'bg-blue-100' : 'bg-gray-200'}
-             p-2 mb-2 rounded-lg max-w-md border border-solid border-slate-600 flex flex-row
-             self-${chat.role === originalMessage.role ? 'end' : 'start'}`}>
-           {isTyping ? (
-            chat.message
-           ):(
-             <img src={messageboxicon} alt="spinner" />
-           ) } 
-          </div>
-          ))}
-        </div>
-        ) : (
-          <ChatComponent />
-        )
-      }
      
       
     <div className='w-[90%] lg:w-2/3 border min-h-12 border-solid border-lighttextgray rounded-2xl mb-12 px-6 py-2'>

@@ -29,3 +29,14 @@ export async function createChat(chatData) {
       throw new Error("Error fetching chat");
     }
   }
+  export async function fetchChatMessages(id) {
+    try {
+      const headers = getAuthorizationHeader();
+      const response = await axios.get(`${BASE_URL}/api/v1/messages/${id}`, {
+        headers,
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error("Error fetching chat");
+    }
+  }
