@@ -5,14 +5,29 @@ import { useState, useEffect } from "react"
 import MessageBox from './MessageBox'
 import SideNav from './SideNav'
 import iconhead from '../../assets/iconhead.png'
-import ChatComponent from './ChatComponent'
 
+
+const data = [
+  'I feel dizzy and I have a slight headache now and then',
+  'I feel dizzy and I have a slight headache now and then',
+  'I feel dizzy and I have a slight headache now and then',
+  'I feel dizzy and I have a slight headache now and then',
+  'I feel dizzy and I have a slight headache now and then',
+  'I feel dizzy and I have a slight headache now and then',
+];
 
 const MainChat = ({darkMode}) => {
 
   const [isShown, setIsShown] = useState(false)
+  const [userName, setUserName] = useState('');
 
- 
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('userData'));
+    const storedUserName = storedUser ? storedUser.data.fullName : '';
+    if (storedUserName) {
+      setUserName(storedUserName);
+    }
+  })
 
   const handleModal = () => {
     setIsShown(!isShown)
@@ -28,9 +43,9 @@ const MainChat = ({darkMode}) => {
         <img src={darkMode ? iconhead : logo } alt="logo-icon" className='mx-auto' />
         <div></div>
       </header>
-  
-        <MessageBox />
+
      
+      <MessageBox />
     </section>
   )
 }
