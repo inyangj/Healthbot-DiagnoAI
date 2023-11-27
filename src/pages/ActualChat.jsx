@@ -46,7 +46,7 @@ const ActualChat = ({
 
   return (
     <section className="px-6 pt-5 w-full">
-      <header className="flex justify-between items-center mt-1 lg:mt-24">
+      <header className="flex justify-between items-center mt-1 lg:mt-8">
         <img
           src={menu}
           alt="menu-icon"
@@ -62,6 +62,8 @@ const ActualChat = ({
         <div></div>
       </header>
 
+     
+
       <div className="w-full min-h-screen flex flex-col">
         {chatHistory?.map((chat, index) => (
           <div
@@ -73,7 +75,7 @@ const ActualChat = ({
              p-2 mb-2 max-w-md border border-solid border-slate-600 flex flex-row
              self-${chat.role === "user" ? "end" : "start"}`}
           >
-            <p>{chat.content}</p>
+            <p className="text-black">{chat.content}</p>
           </div>
         ))}
         {isTyping && (

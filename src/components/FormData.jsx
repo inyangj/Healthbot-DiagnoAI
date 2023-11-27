@@ -184,7 +184,7 @@ const FormData = () => {
                 dateFocus ? " border-secondary" : "border-gray_4"
               } rounded-[0.27rem] items-center gap-2 mb-5`}
             >
-              <img src={calender} alt="input-icon" />
+              <img src={fullnameicon} alt="input-icon" />
 
               <select
                 onFocus={() => setDateFocus(true)}
