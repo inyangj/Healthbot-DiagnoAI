@@ -9,11 +9,12 @@ import trashLight from '../../assets/svg/trashLight.svg'
 import profileLight from '../../assets/svg/profileLight.svg'
 import logoutLight from '../../assets/svg/logoutLight.svg'
 import Li from './Li'
+import { Link } from 'react-router-dom'
 
-const SideBar = ({ darkMode, toggleDarkMode }) => {
+const SideBar = ({ darkMode, toggleDarkMode, handleClick }) => {
   return (
     <aside className={`${darkMode ? '#fff' : '#000'} ${darkMode ? 'bg-[#282828]' : 'bg-[#fff]'} hidden  min-w-[18.5rem] pt-10 lg:grid border-r boreder-r-[#BDBDBD] h-screen fixed left-0 top-0`}>
-        <Button className={` mx-6  h-fit`}>+ New Chat</Button>
+      <Button className={` mx-6  h-fit`} onClick={handleClick}>+ New Chat</Button>
         <div className='self-end'>
             <hr className='w-full border-t border-t-[#BDBDBD]'/>
         <ul className='grid gap-6 p-6'>
