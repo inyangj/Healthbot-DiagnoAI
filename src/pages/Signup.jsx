@@ -37,13 +37,13 @@ const Signup = () => {
                 <FormData />
                        </div>
 
-                <div className="flex items-center my-8">
+                {/* <div className="flex items-center my-8">
                 <hr className="flex-grow border-t border-gray-400" />
                 <p className="mx-2 text-gray-500">or</p>
                 <hr className="flex-grow border-t border-gray-400" />
-                </div>
-                <button className="flex items-center gap-[0.72rem] border border-gray_4 rounded-[0.27rem] w-full justify-center py-2 font-AeonikTRAIL_Bold font-bold mb-8"><img src={google} alt="Google Icon" />Continue with Google</button>
-                <p className="text-[0.75rem] text-gray_3">Already have an account?<span className="text-secondary"><Link to={"/signup"}>Login</Link></span></p>
+                </div> */}
+                {/* <button className="flex items-center gap-[0.72rem] border border-gray_4 rounded-[0.27rem] w-full justify-center py-2 font-AeonikTRAIL_Bold font-bold mb-8"><img src={google} alt="Google Icon" />Continue with Google</button> */}
+                <p className="text-[0.75rem] text-gray_3 mt-3">Already have an account?<span className="text-secondary"><Link to={"/signup"}>Login</Link></span></p>
                 <div className="flex text-xs justify-center gap-2 text-secondary fixed bottom-2 left-0 right-0 translate-x-0 lg:hidden">
                     <p>Terms of Service</p>
                     <p className="text-black">|</p> <p>Privacy Policy</p>
