@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '../elements/Button'
 import { FaMoon, FaSun } from 'react-icons/fa'
 
@@ -9,6 +9,7 @@ import trashLight from '../../assets/svg/trashLight.svg'
 import profileLight from '../../assets/svg/profileLight.svg'
 import logoutLight from '../../assets/svg/logoutLight.svg'
 import Li from './Li'
+<<<<<<< HEAD
 import { Link } from 'react-router-dom'
 import { useRefresh } from '../../chatcontext/RefreshContext';
 
@@ -30,6 +31,63 @@ const SideBar = ({ darkMode, toggleDarkMode, handleClick }) => {
           <li></li>
         </ul>
       </div>
+=======
+import { Link, Navigate } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import { fetchUserChat } from '../../utility/ChatApi'
+
+
+
+
+
+const SideBar = ({ darkMode, toggleDarkMode }) => {
+  const [chats, setChats] = useState([]);
+
+  const {
+    data,
+    isLoading,
+    error,
+  } = useQuery({ queryKey: ["chats"], queryFn: fetchUserChat });
+
+  useEffect(() => {
+    if (data) {
+      setChats(data.data);
+    }
+  }, [data]);
+
+  if (isLoading) {
+    return (
+      <div>
+        <img src={trash} className=" mx-auto" alt="icon" />
+      </div>
+    );
+  }
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  
+
+  const handclick = () => {
+    <Navigate to="/chat" />
+  }
+  return (
+    <aside className={`${darkMode ? '#fff' : '#000'} ${darkMode ? 'bg-[#282828]' : 'bg-[#fff]'} hidden  min-w-[18.5rem] pt-10 lg:grid border-r boreder-r-[#BDBDBD] h-screen fixed left-0 top-0`}>
+       
+        <Button onClick={handclick} className={` mx-6  h-fit`}>+ New Chat</Button>
+
+        <div>
+          <ul>
+            {chats.map((chat) => (
+              <Link to={`/chat/${chat.id}`} key={chat.id}>
+              <li >{chat.title}</li>
+
+              </Link>
+            ))}
+          </ul>
+        </div>
+        
+>>>>>>> 9d13ca722d9bc16a87cd6f8d8ba41404b81bd6c9
         <div className='self-end'>
             <hr className='w-full border-t border-t-[#BDBDBD]'/>
         <ul className='grid gap-6 p-6'>
