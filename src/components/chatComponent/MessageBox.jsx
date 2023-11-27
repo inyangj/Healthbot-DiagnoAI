@@ -1,43 +1,84 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import messageboxicon from '../../assets/messageboxicon.png';
 import messageboxicondark from '../../assets/messageboxicondark.png';
-import ChatComponent from './ChatComponent'
+import { createChat } from '../../utility/ChatApi';
+import ChatComponent from './ChatComponent';
 
 const MessageBox = () => {
   const [textareaContent, setTextareaContent] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [id, setId] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [chatHistory, setChatHistory] = useState([]);
+  const [originalMessage, setOriginalMessage] = useState({});
+  const [responseMessage, setResponseMessage] = useState({});
+  const [chat, setChat] = useState({});
 
-  const simulateBotResponse = (userMessage) => {
-    // Simulate a delayed bot response (you can replace this with actual API call)
-    setTimeout(() => {
-      const botResponse = `Bot: Thanks for your message - "${userMessage}"`;
-      setChatHistory([...chatHistory, { type: 'user', message: userMessage }, { type: 'bot', message: botResponse }]);
-      setIsTyping(false);
-    }, 1000); // Simulated delay of 1 second
-  };
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+  
+      
+    if (userData) {
+      setId(userData.data.id)
+    } 
 
-  const handleSubmit = (event) => {
+    
+  }, []);
+
+  // const simulateBotResponse = async (userMessage) => {
+    
+  //     const botResponse = `Bot: Thanks for your message - "${userMessage}"`;
+  //     setChatHistory([...chatHistory, { type: 'user', message: userMessage }, { type: 'bot', message: botResponse }]);
+  //     setIsTyping(false);
+
+  //     // Make a POST request to the API
+  //     const chat = {
+  //       user: '6561ae8c990f150d3c687d7f',
+  //       content: userMessage,
+  //     };
+
+  //     const response = await createChat(chat);
+
+  //     console.log('API Response:', response.data);
+     
+   
+  // };
+
+  
+
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const userMessage = textareaContent.trim();
 
+    setIsSubmitted(true);
+    setIsTyping(true);
     if (userMessage !== '') {
-      // Add user message to chat history
-      setChatHistory([...chatHistory, { type: 'user', message: userMessage }]);
+   
+      const chatData = {
+        user: id,
+        content: userMessage,
+      };
       
-      // Clear textarea content and reset height
+      const response = await createChat(chatData);
+      const {originalMessage, responseMessage, chat} = response.data.data;
+      setOriginalMessage(originalMessage);
+      setResponseMessage(responseMessage);
+      setChat(chat);
+      setChatHistory([...chatHistory, { role: originalMessage?.role, message: originalMessage?.content }, { role: responseMessage?.role, message: responseMessage?.content }]);
+      
+
+      console.log('API Response:', response.data);
       setTextareaContent('');
       const textarea = document.getElementById('text');
       textarea.style.height = 'auto';
 
       // Simulate bot response
-      setIsSubmitted(true);
-      setIsTyping(true);
-      simulateBotResponse(userMessage);
-      console.log(userMessage)
+     
+      console.log(originalMessage, responseMessage, chat);
     }
   };
+
 
   const handleInputChange = (event) => {
     const content = event.target.value;
@@ -45,11 +86,13 @@ const MessageBox = () => {
     setIsTyping(content.length > 0);
   };
 
+
   const adjustTextareaHeight = (event) => {
     const textarea = event.target;
     textarea.style.height = 'auto';
     textarea.style.height = (textarea.scrollHeight + 2) + 'px';
   };
+
   return (
     
 
@@ -57,14 +100,18 @@ const MessageBox = () => {
 
       {
         isSubmitted ? (
-          <div className='w-full'>
+          <div className='w-full min-h-screen flex flex-col'>
           {/* Render chat history */}
           {chatHistory.map((chat, index) => (
             <div key={index}
-              className={`message ${chat.type === 'user' ? 'bg-blue-100' : 'bg-gray-200'}
+              className={`message ${chat.role === originalMessage.role ? 'bg-blue-100' : 'bg-gray-200'}
              p-2 mb-2 rounded-lg max-w-md border border-solid border-slate-600 flex flex-row
-             self-${chat.type === 'user' ? 'end' : 'start'}`}>
-            {chat.message}
+             self-${chat.role === originalMessage.role ? 'end' : 'start'}`}>
+           {isTyping ? (
+            chat.message
+           ):(
+             <img src={messageboxicon} alt="spinner" />
+           ) } 
           </div>
           ))}
         </div>
@@ -100,5 +147,6 @@ const MessageBox = () => {
     </div>
   );
 };
+
 
 export default MessageBox;
