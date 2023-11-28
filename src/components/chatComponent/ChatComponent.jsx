@@ -17,7 +17,7 @@ const data = [
 ];
 
 
-const ChatComponent = ({ darkMode,isSubmitted, setIsSubmitted }) => {
+const ChatComponent = ({ darkMode, isSubmitted, setIsSubmitted }) => {
     const [userName, setUserName] = useState('');
     
 
