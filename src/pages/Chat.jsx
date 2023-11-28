@@ -8,7 +8,7 @@ import ChatLayout from "./ChatLayout";
 const Chat = () => {
   return (
     <ChatLayout>
-      <MainChat darkMode={darkMode} />
+      <MainChat darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
     </ChatLayout>
   );
 };
